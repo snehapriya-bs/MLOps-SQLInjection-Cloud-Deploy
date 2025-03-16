@@ -7,7 +7,7 @@ This repository modularizes the code for SQL Injection Detection and integrates 
 
 ### **1. Clone the repository**  
 ```bash
-git clone https://github.com/snehapriya-bs/ML-SQLInjection-Detection.git
+git clone https://github.com/snehapriya-bs/MLOps-SQLInjection-Detection.git
 ```
 
 ### **2. Create and Activate Virtual Environment**  
