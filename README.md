@@ -1,7 +1,9 @@
-### `ML-SQLInjection-Detection`  
+## `ML-SQLInjection-Detection`  
 Check the notebooks [here](https://github.com/snehapriya-bs/ML-SQLInjection-Detection) for detailed code and explanation.
 
-This repository modularizes the code for SQL Injection Detection and integrates it with **CI/CD** using **Docker** and **GitHub Actions**.
+This repository modularizes the code for **SQL Injection Detection** and integrates it with **CI/CD** using **Docker** and **GitHub Actions**.
+
+---
 
 ## 🚀 **Local Setup**  
 
@@ -65,8 +67,25 @@ curl -X POST "http://localhost:8000/predict/" -F "file=@test_data.csv"
 
 ---
 
-## 💡 **Contributing**  
-Feel free to open a PR or raise an issue! 😊  
-```
+## 🚨 **Disclaimer**  
+This is a **prototype** model designed to detect SQL Injection. While it performs well on available data, performance can be improved with:  
+- **Larger datasets** – More diverse examples of SQL injection queries.  
+- **Feature engineering** – Improve vectorization and embeddings.  
+- **Hyperparameter tuning** – Optimize classifiers and stacking settings.  
+- **Data augmentation** – Generate more variations of known SQL injection patterns.  
 
-This version includes **SqlInjection.csv** in both the instructions and the file structure. 👍
+---
+
+## 💡 **Optimization Techniques**  
+✅ **TF-IDF Adjustments** – Experiment with `ngram_range`, `max_features`, and `stop_words`.  
+✅ **Class Balancing** – Try oversampling and undersampling techniques like SMOTE or ADASYN.  
+✅ **Model Calibration** – Use `CalibratedClassifierCV` to improve probability estimates.  
+✅ **Dropout and Regularization** – Add regularization to reduce overfitting.  
+✅ **Cross-Validation** – Use `KFold` or `StratifiedKFold` to improve training consistency.  
+
+---
+
+## 🤝 **Contributing**  
+Feel free to open a PR or raise an issue! 😊  
+
+---
