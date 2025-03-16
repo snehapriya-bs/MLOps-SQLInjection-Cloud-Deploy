@@ -27,7 +27,7 @@ Place **SqlInjection.csv** in the root directory.
 ### **5. Train the Model**  
 Delete existing models if they exist:  
 ```bash
-del model.pkl vectorizer.pkl
+Remove-Item -Path "model.pkl", "vectorizer.pkl" -ErrorAction SilentlyContinue
 python train.py
 ```
 
