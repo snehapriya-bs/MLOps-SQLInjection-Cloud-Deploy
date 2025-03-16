@@ -1,3 +1,4 @@
+import os
 import pickle
 import pandas as pd
 from sklearn.ensemble import StackingClassifier, GradientBoostingClassifier, AdaBoostClassifier
@@ -13,32 +14,39 @@ def train_and_save_model():
     print("Training the model...")
 
     # Load dataset
-    file_path = "SqlInjection.csv"  # Adjust if needed
-    if not file_path:
+    file_path = "SqlInjection.csv"
+    if not os.path.exists(file_path):
         raise FileNotFoundError(f"File '{file_path}' not found!")
 
-    df = pd.read_csv(file_path)
-    
+    try:
+        df = pd.read_csv(file_path)
+        if df.empty:
+            raise ValueError(f"'{file_path}' is empty!")
+    except pd.errors.EmptyDataError:
+        raise ValueError(f"'{file_path}' is empty or invalid!")
+
     # Check for missing values
     if df.isnull().sum().sum() > 0:
         print("Found missing values. Dropping them...")
         df = df.dropna(subset=["Query", "Label"]).reset_index(drop=True)
 
     print(f"Dataset shape after cleaning: {df.shape}")
-    
+
     # Extract features and labels
     X = df['Query']
     y = df['Label']
 
-    # Handle imbalance with SMOTE
-    smote = SMOTE(random_state=42)
-    
     # Vectorize queries
     vectorizer = TfidfVectorizer(max_features=5000)
     X_vectorized = vectorizer.fit_transform(X)
-    
-    X_resampled, y_resampled = smote.fit_resample(X_vectorized, y)
-    
+
+    # Handle imbalance with SMOTE (if at least 2 classes)
+    if len(set(y)) > 1:
+        smote = SMOTE(random_state=42)
+        X_resampled, y_resampled = smote.fit_resample(X_vectorized, y)
+    else:
+        X_resampled, y_resampled = X_vectorized, y
+
     # Split dataset
     X_train, X_test, y_train, y_test = train_test_split(
         X_resampled, y_resampled, test_size=0.2, random_state=42, stratify=y_resampled
@@ -53,6 +61,7 @@ def train_and_save_model():
     xgb = XGBClassifier(n_estimators=100, eval_metric="logloss", verbosity=0)
     lgbm = LGBMClassifier(n_estimators=100)
 
+    # Stacking Classifier
     stacking_clf = StackingClassifier(
         estimators=[
             ('gbm', gbm),
@@ -87,5 +96,7 @@ def train_and_save_model():
     with open('vectorizer.pkl', 'wb') as f:
         pickle.dump(vectorizer, f)
 
-    print("Model and vectorizer saved successfully!")
+    print("✅ Model and vectorizer saved successfully!")
 
+if __name__ == "__main__":
+    train_and_save_model()
