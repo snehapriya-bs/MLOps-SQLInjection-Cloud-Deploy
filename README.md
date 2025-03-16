@@ -152,7 +152,6 @@ This is a **prototype** model designed to detect SQL Injection. While it perform
 - **Feature engineering** – Improve vectorization and embeddings.  
 - **Hyperparameter tuning** – Optimize classifiers and stacking settings.  
 - **Data augmentation** – Generate more variations of known SQL injection patterns.  
-- **Model selection** – Experiment with ensemble learning and deep learning models.  
 
 ---
 
