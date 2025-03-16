@@ -13,7 +13,7 @@ def train_and_save_model():
     print("Training the model...")
 
     # Load dataset
-    file_path = "Combined_dataset.csv"  # Adjust if needed
+    file_path = "SqlInjection.csv"  # Adjust if needed
     if not file_path:
         raise FileNotFoundError(f"File '{file_path}' not found!")
 
