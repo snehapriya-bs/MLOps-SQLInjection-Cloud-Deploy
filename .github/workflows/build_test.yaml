@@ -34,7 +34,7 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           push: true
-          tags: sneh1919/sql-injection-detector:latest .
+          tags: sneh1919/sql-injection-detector:latest 
           
   run-and-test:
     runs-on: ubuntu-latest
@@ -44,7 +44,7 @@ jobs:
       # ✅ Pull the Docker image
       - name: Pull Docker image
         run: |
-          docker pull snehapriya/sql-injection-detector:latest
+          docker pull sneh1919/sql-injection-detector:latest
 
       # ✅ Run Docker container
       - name: Run Docker container
