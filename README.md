@@ -47,7 +47,36 @@ curl -X POST "http://localhost:8000/predict/" -F "file=@test_data.csv"
 
 ## 🛠️ **CI/CD Setup**  
 - **Docker**: Dockerfile provided for containerization.  
-- **GitHub Actions**: Automates builds and tests.  
+- **GitHub Actions**: Automates Docker Build.
+- **GCP Cloud Run**: Used for Inference
+  
+## ✅ **Setup Steps for Cloud Run**  
+
+### **1. Create a Service Account in GCP**  
+1. Go to **IAM & Admin → Service Accounts** in GCP.  
+2. Create a new Service Account with the following roles:  
+   - **Cloud Run Admin**  
+   - **Artifact Registry Writer**  
+3. Generate a key for the Service Account (in JSON format).  
+
+---
+
+### **2. Add GitHub Secrets**  
+- **GCP_SA_KEY** → Upload the Service Account key (JSON) as a GitHub secret.  
+- **GCP_PROJECT_ID** → Add your GCP project ID as a GitHub secret.  
+
+---
+
+## 🚀 **How It Works**  
+✔️ Pulls existing Docker image from **Docker Hub**  
+✔️ Tags and pushes it to **Google Artifact Registry**  
+✔️ Deploys the image to **Cloud Run**  
+✔️ Tests the `/predict/` endpoint using `curl`  
+
+---
+
+## 🌟 **Deployment Status**  
+The deployment status can be monitored under **Actions → Cloud Run Deployment** in GitHub.  
 
 ---
 
