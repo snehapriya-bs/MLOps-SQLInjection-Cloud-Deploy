@@ -49,9 +49,6 @@ jobs:
         run: |
           echo "${{ secrets.DOCKER_TOKEN }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
           docker pull ${{ env.DOCKER_HUB_IMAGE }}
-
-      - name: Tag and Push to Artifact Registry
-        run: |
           docker tag ${{ env.DOCKER_HUB_IMAGE }} ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/sql-injection-detector:$GITHUB_SHA
           docker push ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/sql-injection-detector:$GITHUB_SHA
 
