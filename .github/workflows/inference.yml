@@ -34,7 +34,8 @@ jobs:
 
       - name: Pull from Docker Hub
         run: |
-          docker pull $DOCKER_HUB_IMAGE
+          echo $DOCKER_TOKEN | docker login -u $DOCKER_USERNAME --password-stdin
+          docker pull sneh1919/sql-injection-detector:latest 
 
       - name: Tag and Push to Artifact Registry
         run: |
