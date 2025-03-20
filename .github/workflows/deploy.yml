@@ -45,12 +45,13 @@ jobs:
         run: |
           gcloud auth configure-docker ${{ env.REGION }}-docker.pkg.dev --quiet
 
+      # https://cloud.google.com/artifact-registry/docs/docker/pushing-and-pulling
       - name: Pull from Docker Hub
         run: |
           echo "${{ secrets.DOCKER_TOKEN }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
           docker pull ${{ env.DOCKER_HUB_IMAGE }}
-          docker tag ${{ env.DOCKER_HUB_IMAGE }} ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/sql-injection-detector:$GITHUB_SHA
-          docker push ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/sql-injection-detector:$GITHUB_SHA
+          docker tag ${{ env.DOCKER_HUB_IMAGE }} ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/sql-injection-detector/sql-injection-detector:$GITHUB_SHA
+          docker push ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/sql-injection-detector/sql-injection-detector:$GITHUB_SHA
 
       - name: Deploy to Cloud Run
         run: |
