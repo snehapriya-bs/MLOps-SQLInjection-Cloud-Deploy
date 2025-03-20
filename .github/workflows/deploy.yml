@@ -25,21 +25,22 @@ jobs:
           project_id: ${{ secrets.GCP_PROJECT_ID }}
           install_components: 'gke-gcloud-auth-plugin'
 
-        # ✅ Enable Artifact Registry API (idempotent, won't fail if already enabled)
-    - name: Enable Artifact Registry API
-      run: |
-        gcloud services enable artifactregistry.googleapis.com
+        #Only if Regitsry not already present
+      - name: Enable Artifact Registry API
+        run: |
+         gcloud services enable artifactregistry.googleapis.com
 
-    - name: Create Artifact Registry
-      run: |
-        if ! gcloud artifacts repositories describe sql-injection-detector --location=${{ env.REGION }} >/dev/null 2>&1; then
+        #Only if Regitsry not already present
+      - name: Create Artifact Registry
+        run: |
+         if ! gcloud artifacts repositories describe sql-injection-detector --location=${{ env.REGION }} >/dev/null 2>&1; then
           gcloud artifacts repositories create sql-injection-detector \
             --repository-format=docker \
             --location=${{ env.REGION }} \
             --description="SQL Injection Detector Repository"
-        else
+         else
           echo "Artifact Registry already exists."
-        fi
+         fi
 
       - name: Configure Docker for Artifact Registry
         run: |
