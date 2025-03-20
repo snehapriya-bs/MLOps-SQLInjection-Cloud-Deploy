@@ -11,7 +11,7 @@ jobs:
       PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
       SERVICE_NAME: sql-injection-detector
       REGION: asia-south1
-      DOCKER_HUB_IMAGE: snehapriya/sql-injection-detector:latest
+      DOCKER_HUB_IMAGE: sneh1919/sql-injection-detector:latest 
 
     steps:
       - name: Authenticate with GCP
