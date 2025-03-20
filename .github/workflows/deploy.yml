@@ -25,22 +25,21 @@ jobs:
           project_id: ${{ secrets.GCP_PROJECT_ID }}
           install_components: 'gke-gcloud-auth-plugin'
 
-        #Only if Regitsry not already present
       - name: Enable Artifact Registry API
         run: |
-         gcloud services enable artifactregistry.googleapis.com
+          gcloud services enable artifactregistry.googleapis.com --project=${{ env.PROJECT_ID }}
 
-        #Only if Regitsry not already present
-      - name: Create Artifact Registry
+      - name: Create Artifact Registry (if not exists)
         run: |
-         if ! gcloud artifacts repositories describe sql-injection-detector --location=${{ env.REGION }} >/dev/null 2>&1; then
-          gcloud artifacts repositories create sql-injection-detector \
-            --repository-format=docker \
-            --location=${{ env.REGION }} \
-            --description="SQL Injection Detector Repository"
-         else
-          echo "Artifact Registry already exists."
-         fi
+          if ! gcloud artifacts repositories describe sql-injection-detector --location=${{ env.REGION }} --project=${{ env.PROJECT_ID }} >/dev/null 2>&1; then
+            gcloud artifacts repositories create sql-injection-detector \
+              --repository-format=docker \
+              --location=${{ env.REGION }} \
+              --description="SQL Injection Detector Repository" \
+              --project=${{ env.PROJECT_ID }}
+          else
+            echo "Artifact Registry already exists."
+          fi
 
       - name: Configure Docker for Artifact Registry
         run: |
@@ -49,22 +48,23 @@ jobs:
       - name: Pull from Docker Hub
         run: |
           echo "${{ secrets.DOCKER_TOKEN }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
-          docker pull sneh1919/sql-injection-detector:latest 
+          docker pull ${{ env.DOCKER_HUB_IMAGE }}
 
       - name: Tag and Push to Artifact Registry
         run: |
-          docker tag sneh1919/sql-injection-detector:latest  ${{ env.REGION }}-docker.pkg.dev/$PROJECT_ID/sql-injection-detector:$GITHUB_SHA
-          docker push ${{ env.REGION }}-docker.pkg.dev/$PROJECT_ID/sql-injection-detector:$GITHUB_SHA
+          docker tag ${{ env.DOCKER_HUB_IMAGE }} ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/sql-injection-detector:$GITHUB_SHA
+          docker push ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/sql-injection-detector:$GITHUB_SHA
 
       - name: Deploy to Cloud Run
         run: |
-          gcloud run deploy $SERVICE_NAME \
-            --image ${{ env.REGION }}-docker.pkg.dev/$PROJECT_ID/sql-injection-detector:$GITHUB_SHA \
+          gcloud run deploy ${{ env.SERVICE_NAME }} \
+            --image ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/sql-injection-detector:$GITHUB_SHA \
             --platform managed \
-            --region $REGION \
-            --allow-unauthenticated
+            --region ${{ env.REGION }} \
+            --allow-unauthenticated \
+            --project=${{ env.PROJECT_ID }}
 
       - name: Test Cloud Run Endpoint
         run: |
-          ENDPOINT=$(gcloud run services describe $SERVICE_NAME --region $REGION --format 'value(status.url)')
+          ENDPOINT=$(gcloud run services describe ${{ env.SERVICE_NAME }} --region ${{ env.REGION }} --project=${{ env.PROJECT_ID }} --format 'value(status.url)')
           curl -X POST "$ENDPOINT/predict/" -F "file=@test_data.csv"
