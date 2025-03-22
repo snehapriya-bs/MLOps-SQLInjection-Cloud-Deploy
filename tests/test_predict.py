@@ -5,8 +5,7 @@ from pathlib import Path
 import pytest
 
 # Dynamically add `app/` to `sys.path`
-sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "app"))
-
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "sql_injection"))
 from predict import predict_from_sql_file  
  
 

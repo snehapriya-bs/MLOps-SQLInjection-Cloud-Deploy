@@ -1,5 +1,5 @@
 sql_injection_detector/
-│── app/                          # 🚀 Core Application Code
+│── sql_injection/                # 🚀 Core Application Code
 │   ├── __init__.py               # Initializes app as a package
 │   ├── config.py                 # Stores file paths & API settings
 │   ├── data_manager.py           # Handles dataset loading & model saving
@@ -8,6 +8,8 @@ sql_injection_detector/
 │   ├── train.py                  # Model training script
 │   ├── predict.py                # Model prediction logic
 │   ├── api.py                    # FastAPI app for predictions
+│   ├── main.py  
+│   ├── route.py  
 │── data/                          # 📊 Training & Test Data
 │   ├── sql_injection_dataset.csv  # Training dataset
 │   ├── test_sql_file.sql          # Example SQL file for testing
@@ -33,7 +35,7 @@ C:\Users\sneha\mlops-sqlinjection\MLOps-SQLInjection-Detection
 python -m venv .venv
 .\.venv\Scripts\activate
 pip install -r .\deployment\requirements.txt
-python app/train.py
-python .\app\predict.py
+python sql_injection/train.py
+python .\sql_injection\predict.py
 pytest tests/test_predict.py
-python .\app\main.py
+python .\sql_injection\main.py
