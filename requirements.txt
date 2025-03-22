@@ -1,9 +1,0 @@
-fastapi
-scikit-learn
-joblib
-xgboost
-lightgbm
-uvicorn
-pandas
-python-multipart
-imbalanced-learn

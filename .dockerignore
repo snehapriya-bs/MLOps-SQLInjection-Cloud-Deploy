@@ -1,7 +1,0 @@
-__pycache__/
-*.pyc
-*.pyo
-*.log
-model.pkl
-vectorizer.pkl
-*.csv
