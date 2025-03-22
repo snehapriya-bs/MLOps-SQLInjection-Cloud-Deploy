@@ -58,7 +58,7 @@ jobs:
       - name: Deploy to Cloud Run
         run: |
           gcloud run deploy ${{ env.SERVICE_NAME }} \
-            --image ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/sql-injection-detector:$GITHUB_SHA \
+            --image ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/sql-injection-detector/sql-injection-detector:$GITHUB_SHA \
             --platform managed \
             --region ${{ env.REGION }} \
             --allow-unauthenticated \
