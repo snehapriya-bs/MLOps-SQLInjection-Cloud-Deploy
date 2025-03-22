@@ -37,7 +37,7 @@ jobs:
         run: |
           echo "${{ secrets.DOCKER_TOKEN }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
           docker pull sneh1919/sql-injection-detector:latest
-          docker run -d -p 8080:8080 --name sql-test sql-injection-detector
+          docker run -d -p 8080:8080 --name sql-test sneh1919/sql-injection-detector:latest
           sleep 10  # Wait for server to start
           curl -f http://localhost:8080/docs || (echo "Service did not start" && exit 1)
 
