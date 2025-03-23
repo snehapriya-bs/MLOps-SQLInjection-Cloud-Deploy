@@ -31,7 +31,7 @@ if vectorizer is None:
     raise ValueError("❌ ERROR: `create_vectorizer()` returned None.")
 
 print(f"✅ Vectorizer Initialized: {type(vectorizer)}")
-X_vectorized = vectorizer.fit_transform(X)
+X_vectorized = vectorizer.fit_transform(X.values)
 
 # Debug: Ensure data is not empty
 if X_vectorized.shape[0] == 0:
@@ -63,7 +63,7 @@ stacking_clf = StackingClassifier(
 )
 
 print("🚀 Training the model...")
-stacking_clf.fit(X_train.values, y_train)
+stacking_clf.fit(X_train, y_train)
 
 # 🔥 **Evaluate Model**
 y_pred = stacking_clf.predict(X_test)
