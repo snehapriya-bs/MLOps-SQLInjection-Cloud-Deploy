@@ -1,2 +1,2 @@
 Query
-SELECT name FROM employees WHERE salary > 50000;
+SELECT name FROM employees WHERE salary > 50000
