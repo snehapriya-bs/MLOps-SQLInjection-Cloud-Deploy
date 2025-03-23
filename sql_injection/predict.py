@@ -9,11 +9,17 @@ print("🔄 Loading model and vectorizer...")
 try:
     model = joblib.load(MODEL_PATH)
     vectorizer = joblib.load(VECTORIZER_PATH)
-    print("✅ Model & Vectorizer Loaded Successfully.")
+
+    # Debug: Ensure vectorizer is loaded correctly
+    if vectorizer is None:
+        raise ValueError("❌ ERROR: Loaded vectorizer is None.")
+    
+    print(f"✅ Vectorizer Loaded Successfully: {type(vectorizer)}")
+
 except FileNotFoundError as e:
     print(f"❌ ERROR: {e}")
     exit(1)
-
+    
 def predict_from_sql_file(filepath):
     """Predict SQL injection from a .sql file."""
     if not os.path.exists(filepath):
