@@ -11,7 +11,7 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score, roc_auc_score, f1_score
 from data_manager import load_dataset, save_model
 from features import create_vectorizer
-from config import MODEL_PATH, VECTORIZER_PATH
+from config import MODEL_PATH, VECTORIZER_PATH, VOCAB_PATH
 
 
 # Dynamically adjust sys.path
