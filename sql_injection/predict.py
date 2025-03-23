@@ -46,7 +46,7 @@ def predict_from_sql_file(filepath):
     print(f"✅ Transformed Data Shape: {X_transformed.shape}")  # Debugging step
 
     # ✅ Use transformed input for prediction
-    predictions = model.predict(X_transformed.values)
+    predictions = model.predict(X_transformed.toarray())
 
     results = [
         {"query": q, "prediction": "SQL Injection" if p == 1 else "Safe"}
