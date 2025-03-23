@@ -7,11 +7,10 @@ print("🔄 Loading model and vectorizer...")
 
 try:
     try:
-    model = joblib.load(MODEL_PATH/)
-    vectorizer = joblib.load(VECTORIZER_PATH/)
-
+    model = joblib.load(MODEL_PATH)
+    vectorizer = joblib.load(VECTORIZER_PATH)
     # Force the vectorizer to use the same training vocabulary
-    vocab = joblib.load(VECTORIZER_PATH/"vectorizer_vocab.pkl")
+    vocab = joblib.load(VOCAB_PATH)
     vectorizer.vocabulary_ = vocab  # Ensure feature consistency
 
     print(f"✅ Loaded Vectorizer Vocabulary Size: {len(vectorizer.get_feature_names_out())}")
