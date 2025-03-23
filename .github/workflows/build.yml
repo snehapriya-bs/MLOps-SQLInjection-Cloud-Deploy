@@ -1,0 +1,42 @@
+name: Build
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build-train-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.12'
+
+      - name: Install Dependencies
+        run: pip install -r deployment\requirements.txt 
+
+      - name: Train Model
+        run: python sql_injection/train.py
+
+      - name: Install Test Dependencies
+        run: python sql_injection/predict.py
+        
+      - name: Test Model
+        run: pytest tests/test_predict.py
+
+      - name: Install Build Dependencies
+        run: pip install build
+
+      - name: Build Package
+        run: |
+          python -m build
+          ls -ltr 
+          #mv dist/*.whl .
+
