@@ -66,5 +66,6 @@ print(f"✔️ F1 Score: {f1:.4f}")
 
 # Save model & vectorizer
 save_model(stacking_clf, vectorizer)
+joblib.dump(vectorizer, VECTORIZER_PATH)
 print("✅ Model training complete & saved!")
 
