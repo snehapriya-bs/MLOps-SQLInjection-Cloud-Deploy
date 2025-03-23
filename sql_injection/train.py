@@ -79,13 +79,10 @@ print(f"✔️ ROC AUC: {roc_auc:.4f}")
 print(f"✔️ F1 Score: {f1:.4f}")
 
 # Save model & vectorizer
-save_model(stacking_clf, vectorizer)
-# Debug: Ensure vectorizer is valid before saving
-if not hasattr(vectorizer, "transform"):
-    raise ValueError("❌ ERROR: Vectorizer is invalid. It lacks a `transform` method.")
-
-print(f"✅ Saving vectorizer to: {VECTORIZER_PATH}")
-
-# Save vectorizer
-joblib.dump(vectorizer, VECTORIZER_PATH)
-
+try:
+    save_model(stacking_clf, vectorizer)
+    joblib.dump(vectorizer, VECTORIZER_PATH)
+    print("✅ Model and vectorizer saved successfully!")
+except Exception as e:
+    print(f"❌ ERROR: Failed to save model/vectorizer. {e}")
+    exit(1)  # Explicitly exit with error
