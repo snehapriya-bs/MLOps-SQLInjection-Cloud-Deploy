@@ -14,12 +14,10 @@ try:
     print(f"✅ Loaded Vectorizer Vocabulary Size: {len(vectorizer.get_feature_names_out())}")
     
 except FileNotFoundError as e:
-    print(f"❌ ERROR: {e}")
+    print(f"ERROR: {e}")
     exit(1)
-
     if vectorizer is None or not hasattr(vectorizer, "transform"):
         raise ValueError("❌ ERROR: Vectorizer was not loaded correctly.")
-
     print(f"✅ Vectorizer Loaded Successfully: {type(vectorizer)}")
 
 except FileNotFoundError as e:
