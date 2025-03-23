@@ -63,7 +63,7 @@ stacking_clf = StackingClassifier(
 )
 
 print("🚀 Training the model...")
-stacking_clf.fit(X_train, y_train)
+stacking_clf.fit(X_train.values, y_train)
 
 # 🔥 **Evaluate Model**
 y_pred = stacking_clf.predict(X_test)
