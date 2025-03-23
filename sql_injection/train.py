@@ -27,21 +27,14 @@ X, y = df["Query"], df["Label"]
 vectorizer = create_vectorizer()
 
 # Debug: Ensure vectorizer is not None
-if vectorizer is None:
-    raise ValueError("❌ ERROR: `create_vectorizer()` returned None.")
+#if vectorizer is None:
+#    raise ValueError("❌ ERROR: `create_vectorizer()` returned None.")
 
-print(f"✅ Vectorizer Initialized: {type(vectorizer)}")
+#print(f"✅ Vectorizer Initialized: {type(vectorizer)}")
 X_vectorized = vectorizer.fit_transform(X.values)
-
-# Debug: Ensure data is not empty
-if X_vectorized.shape[0] == 0:
-    raise ValueError("❌ ERROR: Vectorized data is empty. Check input queries.")
-
-print(f"✅ Vectorized Data Shape: {X_vectorized.shape}")
 
 # Split data
 X_train, X_test, y_train, y_test = train_test_split(X_vectorized, y, test_size=0.2, random_state=42, stratify=y)
-
 print(f"✅ Training Data: {X_train.shape}, Testing Data: {X_test.shape}")
 
 # Define Base Models
