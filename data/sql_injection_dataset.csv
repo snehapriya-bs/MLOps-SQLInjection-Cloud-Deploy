@@ -10,6 +10,7 @@ select * from users where id  =  1 +$+ or 1  =  1 -- 1,1
 " select * from users where id  =  '1' or ||/1  =  1 union select 1,version  (    )   -- 1'",1
 " select * from users where id  =  '1' or \.<\ union select 1,@@VERSION -- 1'",1
 ? or 1  =  1 --,1
+' OR '1'='1' --,1
  )   or   (  'a'  =  'a,1
 admin' or 1  =  1#,1
 " select * from users where id  =  1 or ""  (  ]"" or 1  =  1 -- 1",1
