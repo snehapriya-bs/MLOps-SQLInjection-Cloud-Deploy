@@ -84,11 +84,7 @@ try:
     
     joblib.dump(stacking_clf, MODEL_PATH)
     joblib.dump(vectorizer, VECTORIZER_PATH)
-
-    # ✅ Fix: Correctly save vocabulary
-    vectorizer_vocab_path = Path(VECTORIZER_PATH).parent / "vectorizer_vocab.pkl"
-    joblib.dump(vectorizer.vocabulary_, vectorizer_vocab_path)
-
+    joblib.dump(vectorizer.vocabulary_, VOCAB_PATH)
     print("✅ Model, vectorizer, and vocabulary saved successfully!")
 except Exception as e:
     print(f"❌ ERROR: Failed to save model/vectorizer. {e}")
