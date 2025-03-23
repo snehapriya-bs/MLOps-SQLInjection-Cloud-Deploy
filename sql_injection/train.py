@@ -81,10 +81,14 @@ print(f"✔️ F1 Score: {f1:.4f}")
 # Save model & vectorizer
 try:
     save_model(stacking_clf, vectorizer)
+    
     joblib.dump(stacking_clf, MODEL_PATH)
     joblib.dump(vectorizer, VECTORIZER_PATH)
-    joblib.dump(vectorizer.vocabulary_, VECTORIZER_PATH/"vectorizer_vocab.pkl")
-    print("✅ Model and vectorizer saved successfully!")
+
+    # ✅ Fix: Correctly save vocabulary
+    vectorizer_vocab_path = Path(VECTORIZER_PATH).parent / "vectorizer_vocab.pkl"
+    joblib.dump(vectorizer.vocabulary_, vectorizer_vocab_path)
+
+    print("✅ Model, vectorizer, and vocabulary saved successfully!")
 except Exception as e:
     print(f"❌ ERROR: Failed to save model/vectorizer. {e}")
-    exit(1)  # Explicitly exit with error
