@@ -6,8 +6,18 @@ from config import MODEL_PATH, VECTORIZER_PATH
 print("🔄 Loading model and vectorizer...")
 
 try:
-    model = joblib.load(MODEL_PATH)
-    vectorizer = joblib.load(VECTORIZER_PATH)
+    try:
+    model = joblib.load(MODEL_PATH/)
+    vectorizer = joblib.load(VECTORIZER_PATH/)
+
+    # Force the vectorizer to use the same training vocabulary
+    vocab = joblib.load(VECTORIZER_PATH/"vectorizer_vocab.pkl")
+    vectorizer.vocabulary_ = vocab  # Ensure feature consistency
+
+    print(f"✅ Loaded Vectorizer Vocabulary Size: {len(vectorizer.get_feature_names_out())}")
+except FileNotFoundError as e:
+    print(f"❌ ERROR: {e}")
+    exit(1)
 
     if vectorizer is None or not hasattr(vectorizer, "transform"):
         raise ValueError("❌ ERROR: Vectorizer was not loaded correctly.")
