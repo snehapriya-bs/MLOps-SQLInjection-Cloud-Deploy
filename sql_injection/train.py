@@ -11,8 +11,6 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score, roc_auc_score, f1_score
 from data_manager import load_dataset, save_model
 from features import create_vectorizer
-from config import MODEL_PATH, VECTORIZER_PATH, VOCAB_PATH
-
 
 # Dynamically adjust sys.path
 file = Path(__file__).resolve()
@@ -25,16 +23,11 @@ X, y = df["Query"], df["Label"]
 
 # Vectorize SQL queries
 vectorizer = create_vectorizer()
-
-# Debug: Ensure vectorizer is not None
-#if vectorizer is None:
-#    raise ValueError("❌ ERROR: `create_vectorizer()` returned None.")
-
-#print(f"✅ Vectorizer Initialized: {type(vectorizer)}")
-X_vectorized = vectorizer.fit_transform(X.values)
+X_vectorized = vectorizer.fit_transform(X)
 
 # Split data
 X_train, X_test, y_train, y_test = train_test_split(X_vectorized, y, test_size=0.2, random_state=42, stratify=y)
+
 print(f"✅ Training Data: {X_train.shape}, Testing Data: {X_test.shape}")
 
 # Define Base Models
@@ -72,12 +65,5 @@ print(f"✔️ ROC AUC: {roc_auc:.4f}")
 print(f"✔️ F1 Score: {f1:.4f}")
 
 # Save model & vectorizer
-try:
-    save_model(stacking_clf, vectorizer)
-    
-    joblib.dump(stacking_clf, MODEL_PATH)
-    joblib.dump(vectorizer, VECTORIZER_PATH)
-    joblib.dump(vectorizer.vocabulary_, VOCAB_PATH)
-    print("✅ Model, vectorizer, and vocabulary saved successfully!")
-except Exception as e:
-    print(f"❌ ERROR: Failed to save model/vectorizer. {e}")
+save_model(stacking_clf, vectorizer)
+print("✅ Model training complete & saved!")
