@@ -37,6 +37,7 @@ def list_reqs(fname="requirements.txt"):
         return fd.read().splitlines()
 
 # Where the magic happens:
+# Where the magic happens:
 setup(
     name=NAME,
     version=about["__version__"],
@@ -47,14 +48,12 @@ setup(
     author_email=EMAIL,
     python_requires=REQUIRES_PYTHON,
     packages=find_packages(exclude=("tests",)),
-    package_data={"regression_model": ["VERSION"]},
+    package_data={"sql_injection": ["VERSION"]},  # ✅ Fix Here
     install_requires=list_reqs(),
     extras_require={},
-    include_package_data=True,
+    include_package_data=True,  # ✅ Ensure this is True
     license="BSD-3",
     classifiers=[
-        # Trove classifiers
-        # Full list: https://pypi.python.org/pypi?%3Aaction=list_classifiers
         "License :: OSI Approved :: MIT License",
         "Programming Language :: Python",
         "Programming Language :: Python :: 3",
