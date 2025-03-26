@@ -24,7 +24,7 @@ long_description = DESCRIPTION
 about = {}
 ROOT_DIR = Path(__file__).resolve().parent
 print(ROOT_DIR)
-REQUIREMENTS_DIR = ROOT_DIR / 'deployment'
+REQUIREMENTS_DIR = ROOT_DIR / "deployment"
 PACKAGE_DIR = ROOT_DIR / 'sql_injection'
 with open(PACKAGE_DIR / "VERSION") as f:
     _version = f.read().strip()
@@ -36,7 +36,6 @@ def list_reqs(fname="requirements.txt"):
     with open(REQUIREMENTS_DIR / fname) as fd:
         return fd.read().splitlines()
 
-# Where the magic happens:
 # Where the magic happens:
 setup(
     name=NAME,
