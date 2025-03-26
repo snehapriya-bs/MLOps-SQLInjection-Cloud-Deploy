@@ -38,9 +38,12 @@ async def predict(input_data: schemas.MultipleDataInputs = Body(..., example=exa
     """
     sql_injection predict
     """
-    
-    results = make_prediction(input_data=input_df.replace({np.nan: None}))
+    test_file = "data/test_sql_file.sql"  # Ensure this file exists!
+    if not os.path.exists(test_file):
+        print(f"❌ ERROR: Test file '{test_file}' not found! Please provide a valid SQL file.")
+        exit(1)
 
+    results = predict_from_sql_file(test_file)
     if results["errors"] is not None:
         raise HTTPException(status_code=400, detail=json.loads(results["errors"]))
 
