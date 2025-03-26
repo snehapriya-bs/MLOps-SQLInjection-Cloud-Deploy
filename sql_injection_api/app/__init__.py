@@ -1,2 +1,1 @@
-from .health import Health
-from .predict import MultipleDataInputs, PredictionResults
+__version__ = "0.0.1"
