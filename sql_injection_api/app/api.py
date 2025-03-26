@@ -36,10 +36,8 @@ def health() -> dict:
 @api_router.post("/predict", response_model=schemas.PredictionResults, status_code=200)
 async def predict(input_data: schemas.MultipleDataInputs = Body(..., example=example_input)) -> Any:
     """
-    Bike rental count prediction with the sql_injection
+    sql_injection predict
     """
-
-    input_df = pd.DataFrame(jsonable_encoder(input_data.inputs))
     
     results = make_prediction(input_data=input_df.replace({np.nan: None}))
 
