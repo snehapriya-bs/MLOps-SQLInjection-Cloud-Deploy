@@ -8,7 +8,7 @@ include data/test_sql_file.sql
 include sql_injection/datasets/test.csv
 include sql_injection/trained_models/*.pkl
 include sql_injection/VERSION
-include sql_injection/config.yml
+
 
 include ./deployment/requirements.txt
 exclude *.log
