@@ -38,5 +38,10 @@ jobs:
         run: |
           python -m build
           ls -ltr 
-          #mv dist/*.whl .
+          mv dist/*.whl .
 
+      - name: Install FastAPI Dependencies
+        run: pip install -r sql_injection_api/requirements.txt
+
+      - name: Start FastAPI (Test Only)
+        run: python sql_injection_api/app/main.py &
