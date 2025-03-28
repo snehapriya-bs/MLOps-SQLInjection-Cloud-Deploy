@@ -13,7 +13,7 @@ import pandas as pd
 from fastapi import APIRouter, HTTPException, Body
 from fastapi.encoders import jsonable_encoder
 from sql_injection import __version__ as model_version
-from sql_injection.predict import make_prediction
+from sql_injection.predict import predict_from_sql_file
 
 from app import __version__, schemas
 from app.config import settings
