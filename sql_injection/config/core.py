@@ -55,17 +55,10 @@ def fetch_config_from_yaml(cfg_path: Path = None) -> YAML:
         parsed_config = load(conf_file.read())
         print(f"✅ Config Loaded from {cfg_path}")
         return parsed_config
-
-def create_and_validate_config(parsed_config: YAML = None) -> Config:
-    """Validate and create a config object."""
-    if parsed_config is None:
-        parsed_config = fetch_config_from_yaml()
-
-    # Ensure correct structure
-    return Config(
-        app_config=AppConfig(**parsed_config.data["app_config"]),
-        ml_model_config=MLModelConfig(**parsed_config.data["model_config"]),  # ✅ Updated reference
-    )
+        
+def create_and_validate_config() -> MLModelConfig:
+    parsed_config = yaml.safe_load(Path("config.yaml").read_text())  # Load YAML config
+    return MLModelConfig(**parsed_config["ml_model"])  # ✅ Ensure key names match
 
 # Load and validate configuration at runtime
 config = create_and_validate_config()
