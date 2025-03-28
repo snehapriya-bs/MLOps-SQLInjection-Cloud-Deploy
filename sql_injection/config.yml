@@ -1,13 +1,16 @@
-app_config:
-  package_name: "sql_injection"
-  training_data_file: "sql_injection_dataset.csv"
+# Package Overview
+package_name: sql_injection
 
-ml_model_config:
-  features:
+# Data Files
+training_data_file: sql_injection_dataset.csv
+
+# Variables
+# The variable we are attempting to predict (cnt)
+target: Label
+features:
     - Query  # ✅ Use a proper YAML list
-  target: Label
-  test_size: 0.2
-  random_state: 42
-  n_estimators: 100
-  max_depth: 10
+test_size: 0.2
+random_state: 42
+n_estimators: 100
+max_depth: 10
 
