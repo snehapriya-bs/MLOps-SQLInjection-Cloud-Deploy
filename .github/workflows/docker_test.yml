@@ -1,12 +1,7 @@
 name: Docker Image Test
 
 on:
-  push:
-    branches:
-      - main  # You can change this to any branch you want to test on
-  pull_request:
-    branches:
-      - main  # Trigger for pull requests to the main branch
+  workflow_dispatch:
 
 jobs:
   docker-test:
