@@ -2,7 +2,7 @@ app_config:
   package_name: "sql_injection"
   training_data_file: "sql_injection_dataset.csv"
 
-ml_model:
+ml_model_config:
   features:
     - Query  # ✅ Use a proper YAML list
   target: Label
