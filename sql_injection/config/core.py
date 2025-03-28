@@ -1,5 +1,6 @@
 # Path setup, and access the config.yml file, datasets folder & trained models
 import sys
+import os
 from pathlib import Path
 file = Path(__file__).resolve()
 parent, root = file.parent, file.parents[1]
