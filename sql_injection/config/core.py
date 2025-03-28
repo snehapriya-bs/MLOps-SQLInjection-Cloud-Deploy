@@ -39,7 +39,7 @@ class Config(BaseModel):
     """Master config object."""
 
     app_config_: AppConfig
-    model_config_: ModelConfig
+    model_config_: MLModelConfig
 
 def find_config_file() -> Path:
     """Locate the configuration file."""
