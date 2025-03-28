@@ -1,6 +1,6 @@
 app_config:
-  package_name: "bikeshare_model"
-  training_data_file: "train.csv"
+  package_name: "sql_injection"
+  training_data_file: "sql_injection_dataset.csv"
 
 model_config:
   target: "Label"
