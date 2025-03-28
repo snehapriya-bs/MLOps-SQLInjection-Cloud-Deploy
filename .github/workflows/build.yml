@@ -62,4 +62,4 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           push: true
-          tags: sneh1919/SQLInjection-Detector:latest 
+          tags: sneh1919/sqlinjection-detector:latest 
