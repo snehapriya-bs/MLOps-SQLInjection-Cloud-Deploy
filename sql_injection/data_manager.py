@@ -16,7 +16,7 @@ from pathlib import Path
 import pandas as pd
 import pickle
 import sys
-from sql_injection.config.core  import DATASET_DIR, MODEL_PATH, VECTORIZER_PATH
+from sql_injection.config.core  import DATASET_PATH, MODEL_PATH, VECTORIZER_PATH
 
 def load_dataset():
     """Load and preprocess the dataset."""
