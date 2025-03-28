@@ -10,8 +10,15 @@ COPY sql_injection-0.0.1-py3-none-any.whl /app/
 # Install the wheel package
 RUN pip install --no-cache-dir sql_injection-0.0.1-py3-none-any.whl
 
+# Install any additional dependencies if needed
+# RUN pip install --no-cache-dir -r requirements.txt
+
 # Expose the application port
 EXPOSE 8080
 
+# Verify the contents of /app
+RUN ls -l /app  # Optional: Check if the wheel file and the folder structure are correct
+
 # Run the FastAPI app using Uvicorn
 CMD ["uvicorn", "sql_injection_api.app.main:app", "--host", "0.0.0.0", "--port", "8080"]
+
