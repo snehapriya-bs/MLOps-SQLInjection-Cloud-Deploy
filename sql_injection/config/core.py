@@ -27,10 +27,9 @@ class AppConfig(BaseModel):
     package_name: str
     training_data_file: str
 
-class MLModelConfig(BaseModel):  # ✅ Renamed from `ModelConfig`
-    """Configuration for model training & feature engineering."""
+class MLModelConfig(BaseModel):
+    features: List[str]  # ✅ Add this field
     target: str
-    features: List[str]
     test_size: float
     random_state: int
     n_estimators: int
