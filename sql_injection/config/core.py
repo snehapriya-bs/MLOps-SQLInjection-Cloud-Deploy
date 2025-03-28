@@ -4,7 +4,7 @@ from pydantic import BaseModel
 from strictyaml import YAML, load
 
 # Define project directories
-CONFIG_FILE_PATH = Path(__file__).resolve().parent / "config.yml"
+CONFIG_FILE_PATH = Path(__file__).resolve().parent /".."/"config.yml"
 DATASET_PATH = Path(__file__).resolve().parent.parent / "data"
 MODEL_PATH = Path(__file__).resolve().parent.parent / "trained_model" / "model.pkl"
 VECTORIZER_PATH = Path(__file__).resolve().parent.parent / "trained_model" / "vectorizer.pkl"
