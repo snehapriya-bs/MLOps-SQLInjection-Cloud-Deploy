@@ -36,25 +36,33 @@ class MLModelConfig(BaseModel):
     max_depth: int
 
 class Config(BaseModel):
-    """Master configuration object."""
-    app_config: AppConfig
-    ml_model_config: MLModelConfig  # ✅ Renamed to avoid conflict
+    """Master config object."""
+
+    app_config_: AppConfig
+    model_config_: ModelConfig
 
 def find_config_file() -> Path:
     """Locate the configuration file."""
+    
     if CONFIG_FILE_PATH.is_file():
         return CONFIG_FILE_PATH
-    raise FileNotFoundError(f"❌ Config file not found at {CONFIG_FILE_PATH!r}")
+    
+    raise Exception(f"Config not found at {CONFIG_FILE_PATH!r}")
+
 
 def fetch_config_from_yaml(cfg_path: Path = None) -> YAML:
     """Parse YAML containing the package configuration."""
+
     if not cfg_path:
         cfg_path = find_config_file()
-    
-    with open(cfg_path, "r", encoding="utf-8") as conf_file:
-        parsed_config = load(conf_file.read())
-        print(f"✅ Config Loaded from {cfg_path}")
-        return parsed_config
+
+    if cfg_path:
+        with open(cfg_path, "r") as conf_file:
+            parsed_config = load(conf_file.read())
+            return parsed_config
+        
+    raise OSError(f"Did not find config file at path: {cfg_path}")
+
         
 def create_and_validate_config(parsed_config: YAML = None) -> Config:
     """Run validation on config values."""
