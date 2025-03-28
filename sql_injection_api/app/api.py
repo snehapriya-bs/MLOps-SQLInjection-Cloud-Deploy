@@ -33,10 +33,10 @@ def health() -> dict:
     return health.dict()
 
 
-@api_router.post("/predict", response_model=schemas.PredictionResults, status_code=200)
-async def predict(input_data: schemas.MultipleDataInputs = Body(..., example=example_input)) -> Any:
+@api_router.post("/predict", status_code=200)
+async def predict(input_data: Dict[str, Any] = Body(...)) -> Dict[str, Any]:
     """
-    sql_injection predict
+    SQL Injection Prediction
     """
     test_file = "data/test_sql_file.sql"  # Ensure this file exists!
     if not os.path.exists(test_file):
