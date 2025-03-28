@@ -56,9 +56,18 @@ def fetch_config_from_yaml(cfg_path: Path = None) -> YAML:
         print(f"✅ Config Loaded from {cfg_path}")
         return parsed_config
         
-def create_and_validate_config() -> MLModelConfig:
-    parsed_config = yaml.safe_load(Path("config.yml").read_text())  # Load YAML config
-    return MLModelConfig(**parsed_config["ml_model"])  # ✅ Ensure key names match
+def create_and_validate_config(parsed_config: YAML = None) -> Config:
+    """Run validation on config values."""
+    if parsed_config is None:
+        parsed_config = fetch_config_from_yaml()
+
+    # specify the data attribute from the strictyaml YAML type.
+    _config = Config(
+        app_config_ = AppConfig(**parsed_config.data),
+        model_config_ = ModelConfig(**parsed_config.data),
+    )
+
+    return _config
 
 # Load and validate configuration at runtime
 config = create_and_validate_config()
