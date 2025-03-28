@@ -43,8 +43,8 @@ jobs:
       - name: Install FastAPI Dependencies
         run: pip install -r sql_injection_api/requirements.txt
 
-      - name: Start FastAPI (Test Only)
-        run: python sql_injection_api/app/main.py 
+     # - name: Start FastAPI (Test Only)
+     #   run: python sql_injection_api/app/main.py 
         
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
