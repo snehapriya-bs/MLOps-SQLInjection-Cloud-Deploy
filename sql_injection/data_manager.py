@@ -1,10 +1,22 @@
 # Handles Dataset & Model Loading/Saving
 import os
+import sys
+from pathlib import Path
+file = Path(__file__).resolve()
+parent, root = file.parent, file.parents[1]
+sys.path.append(str(root))
+
+import typing as t
+
+import joblib
+import pandas as pd
+
+from sql_injection import __version__ as _version
 from pathlib import Path
 import pandas as pd
 import pickle
 import sys
-from config import DATASET_PATH, MODEL_PATH, VECTORIZER_PATH
+from sql_injection.config.core  import DATASET_PATH, MODEL_PATH, VECTORIZER_PATH
 
 def load_dataset():
     """Load and preprocess the dataset."""
