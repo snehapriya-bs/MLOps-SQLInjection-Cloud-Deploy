@@ -20,8 +20,7 @@ from sql_injection.config.core  import DATASET_DIR, MODEL_PATH, VECTORIZER_PATH
 
 def load_dataset():
     """Load and preprocess the dataset."""
-    dataframe = pd.read_csv(Path(f"{DATASET_DIR}/sql_injection_dataset.csv"))
-    return dataframe.dropna()
+    return pd.read_csv(DATASET_PATH).dropna()
 
 def save_model(model, vectorizer):
     """Save trained model and vectorizer."""
