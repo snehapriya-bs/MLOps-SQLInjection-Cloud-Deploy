@@ -57,7 +57,7 @@ def fetch_config_from_yaml(cfg_path: Path = None) -> YAML:
         return parsed_config
         
 def create_and_validate_config() -> MLModelConfig:
-    parsed_config = yaml.safe_load(Path("config.yaml").read_text())  # Load YAML config
+    parsed_config = yaml.safe_load(Path("config.yml").read_text())  # Load YAML config
     return MLModelConfig(**parsed_config["ml_model"])  # ✅ Ensure key names match
 
 # Load and validate configuration at runtime
