@@ -16,11 +16,12 @@ from pathlib import Path
 import pandas as pd
 import pickle
 import sys
-from sql_injection.config.core  import DATASET_PATH, MODEL_PATH, VECTORIZER_PATH
+from sql_injection.config.core  import DATASET_DIR, MODEL_PATH, VECTORIZER_PATH
 
 def load_dataset():
     """Load and preprocess the dataset."""
-    return pd.read_csv(DATASET_PATH).dropna()
+    dataframe = pd.read_csv(Path(f"{DATASET_DIR}/sql_injection_dataset.csv"))
+    return dataframe.dropna()
 
 def save_model(model, vectorizer):
     """Save trained model and vectorizer."""
