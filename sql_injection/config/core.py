@@ -19,8 +19,7 @@ PACKAGE_ROOT = Path(sql_injection.__file__).resolve().parent
 ROOT = PACKAGE_ROOT.parent
 CONFIG_FILE_PATH = PACKAGE_ROOT / "config.yml"
 #print(CONFIG_FILE_PATH)
-
-DATASET_DIR = PACKAGE_ROOT /".."/ "datasets"
+DATASET_DIR = PACKAGE_ROOT /".."/ "data"
 TRAINED_MODEL_DIR = PACKAGE_ROOT / "trained_models"
 DATASET_PATH = os.path.join(PACKAGE_ROOT, "..", "data", "sql_injection_dataset.csv")  # Move one level up
 MODEL_PATH = os.path.join(PACKAGE_ROOT, "trained_model", "model.pkl")
