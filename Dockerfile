@@ -16,11 +16,12 @@ COPY sql_injection-0.0.1-py3-none-any.whl /app/
 # List the contents of the unzipped directory to verify
 #RUN ls -l /app/unzipped/
 
-# Install the wheel file
-RUN pip install --no-cache-dir sql_injection-0.0.1-py3-none-any.whl
 
 #Copy the 'api' module (adjust the source path to where your 'api' folder is located)
 COPY sql_injection_api /app/sql_injection_api
+
+# Install the wheel file
+RUN pip install -r sql_injection_api/requirements.txt
 
 # Expose the application port
 EXPOSE 8080
