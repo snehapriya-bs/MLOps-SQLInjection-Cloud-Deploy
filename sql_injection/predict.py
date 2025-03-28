@@ -1,6 +1,7 @@
 # Loads Model & Predicts from .sql Files
 import joblib
 import os
+import sys
 from sql_injection.config.core import MODEL_PATH, VECTORIZER_PATH
 
 # Load Model & Vectorizer
