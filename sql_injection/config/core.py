@@ -1,13 +1,26 @@
+# Path setup, and access the config.yml file, datasets folder & trained models
+import sys
 from pathlib import Path
-from typing import List
+file = Path(__file__).resolve()
+parent, root = file.parent, file.parents[1]
+sys.path.append(str(root))
+
+from pathlib import Path
+from typing import Dict, List
+
 from pydantic import BaseModel
 from strictyaml import YAML, load
 
-# Define project directories
-CONFIG_FILE_PATH = Path(__file__).resolve().parent /".."/"config.yml"
-DATASET_PATH = Path(__file__).resolve().parent.parent / "data"
-MODEL_PATH = Path(__file__).resolve().parent.parent / "trained_model" / "model.pkl"
-VECTORIZER_PATH = Path(__file__).resolve().parent.parent / "trained_model" / "vectorizer.pkl"
+import sql_injection
+
+# Project Directories
+PACKAGE_ROOT = Path(sql_injection.__file__).resolve().parent
+ROOT = PACKAGE_ROOT.parent
+CONFIG_FILE_PATH = PACKAGE_ROOT / "config.yml"
+#print(CONFIG_FILE_PATH)
+
+DATASET_DIR = PACKAGE_ROOT /".."/ "datasets"
+TRAINED_MODEL_DIR = PACKAGE_ROOT / "trained_models"
 
 class AppConfig(BaseModel):
     """Application-level config."""
