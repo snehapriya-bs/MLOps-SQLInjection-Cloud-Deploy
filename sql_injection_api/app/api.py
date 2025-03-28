@@ -10,6 +10,7 @@ from typing import Any
 
 import numpy as np
 import pandas as pd
+from typing import Dict, Any
 from fastapi import APIRouter, HTTPException, Body
 from fastapi.encoders import jsonable_encoder
 from sql_injection import __version__ as model_version
