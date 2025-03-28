@@ -72,7 +72,7 @@ def create_and_validate_config(parsed_config: YAML = None) -> Config:
     # specify the data attribute from the strictyaml YAML type.
     _config = Config(
         app_config_ = AppConfig(**parsed_config.data),
-        model_config_ = ModelConfig(**parsed_config.data),
+        model_config_ = MLModelConfig(**parsed_config.data),
     )
 
     return _config
