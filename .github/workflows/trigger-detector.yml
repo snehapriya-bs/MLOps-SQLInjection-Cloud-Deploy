@@ -1,0 +1,41 @@
+name: Trigger Cloud Run Endpoint on PR
+
+on:
+  pull_request:
+    branches:
+      - main  # Trigger when a PR is created/updated to the main branch
+
+jobs:
+  trigger:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check out code
+      uses: actions/checkout@v2
+
+    - name: Set up Google Cloud SDK
+      uses: google-github-actions/setup-gcloud@v0.2.0
+      with:
+        version: 'latest'
+        project_id: ${{ secrets.GCP_PROJECT_ID }}
+
+    - name: Authenticate to GCP
+      run: |
+        echo ${{ secrets.GCP_SA_KEY }} | gcloud auth activate-service-account --key-file=-
+    
+    - name: Trigger Cloud Run Endpoint
+      run: |
+        # Replace this with your Cloud Run URL
+        CLOUD_RUN_URL="https://your-cloud-run-url.a.run.app"
+
+        # Get an identity token for authentication (if required)
+        ID_TOKEN=$(gcloud auth print-identity-token)
+
+        # Trigger the Cloud Run endpoint using the identity token
+        curl -X POST $CLOUD_RUN_URL \
+          -H "Authorization: Bearer $ID_TOKEN" \
+          -H "Content-Type: application/json" \
+          -d '{"key": "value"}'  # Modify the payload as needed
+      env:
+        CLOUD_RUN_URL: ${{ secrets.CLOUD_RUN_URL }}  # Add this secret in GitHub
+
