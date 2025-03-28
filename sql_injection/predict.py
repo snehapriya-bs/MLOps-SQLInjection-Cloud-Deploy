@@ -1,12 +1,13 @@
 # Loads Model & Predicts from .sql Files
+
+import os
+import sys
 import joblib
 from pathlib import Path
 file = Path(__file__).resolve()
 parent, root = file.parent, file.parents[1]
 sys.path.append(str(root))
 
-import os
-import sys
 from sql_injection.config.core import MODEL_PATH, VECTORIZER_PATH
 
 # Load Model & Vectorizer
