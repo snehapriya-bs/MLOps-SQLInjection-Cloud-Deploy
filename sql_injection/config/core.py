@@ -21,6 +21,10 @@ CONFIG_FILE_PATH = PACKAGE_ROOT / "config.yml"
 
 DATASET_DIR = PACKAGE_ROOT /".."/ "datasets"
 TRAINED_MODEL_DIR = PACKAGE_ROOT / "trained_models"
+DATASET_PATH = os.path.join(BASE_DIR, "..", "data", "sql_injection_dataset.csv")  # Move one level up
+MODEL_PATH = os.path.join(BASE_DIR, "trained_model", "model.pkl")
+VECTORIZER_PATH = os.path.join(BASE_DIR,"trained_model", "vectorizer.pkl")
+VOCAB_PATH = os.path.join(BASE_DIR,"trained_model", "vocab.pkl")
 
 class AppConfig(BaseModel):
     """Application-level config."""
