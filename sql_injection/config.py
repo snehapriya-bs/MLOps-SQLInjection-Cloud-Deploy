@@ -11,8 +11,7 @@ from typing import Dict, List
 from pydantic import BaseModel
 from strictyaml import YAML, load
 
-import bikeshare_model
-
+import sql_injection
 # Project Directories
 PACKAGE_ROOT = Path(sql_injection.__file__).resolve().parent
 ROOT = PACKAGE_ROOT.parent
