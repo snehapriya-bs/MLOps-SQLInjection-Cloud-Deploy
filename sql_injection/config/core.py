@@ -39,7 +39,6 @@ class ModelConfig(BaseModel):
     """
 
     target: str
-    features: List[str]
     
     Query: str
     
