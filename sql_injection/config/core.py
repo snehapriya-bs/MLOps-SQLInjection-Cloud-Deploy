@@ -5,7 +5,7 @@ from strictyaml import YAML, load
 
 # Define project directories
 CONFIG_FILE_PATH = Path(__file__).resolve().parent / "config.yml"
-DATASET_PATH = Path(__file__).resolve().parent.parent /".."/ "data"
+DATASET_PATH = Path(__file__).resolve().parent.parent / "data"
 MODEL_PATH = Path(__file__).resolve().parent.parent / "trained_model" / "model.pkl"
 VECTORIZER_PATH = Path(__file__).resolve().parent.parent / "trained_model" / "vectorizer.pkl"
 
@@ -14,7 +14,7 @@ class AppConfig(BaseModel):
     package_name: str
     training_data_file: str
 
-class ModelConfig(BaseModel):
+class MLModelConfig(BaseModel):  # ✅ Renamed from `ModelConfig`
     """Configuration for model training & feature engineering."""
     target: str
     features: List[str]
@@ -26,7 +26,7 @@ class ModelConfig(BaseModel):
 class Config(BaseModel):
     """Master configuration object."""
     app_config: AppConfig
-    model_config: ModelConfig
+    ml_model_config: MLModelConfig  # ✅ Renamed to avoid conflict
 
 def find_config_file() -> Path:
     """Locate the configuration file."""
@@ -52,7 +52,7 @@ def create_and_validate_config(parsed_config: YAML = None) -> Config:
     # Ensure correct structure
     return Config(
         app_config=AppConfig(**parsed_config.data["app_config"]),
-        model_config=ModelConfig(**parsed_config.data["model_config"]),
+        ml_model_config=MLModelConfig(**parsed_config.data["model_config"]),  # ✅ Updated reference
     )
 
 # Load and validate configuration at runtime
