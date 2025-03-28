@@ -2,9 +2,9 @@ app_config:
   package_name: "sql_injection"
   training_data_file: "sql_injection_dataset.csv"
 
-model_config:
+ml_model:
+  features: ["Query"]  # ✅ Add this if missing
   target: "Label"
-  query: "SELECT * FROM data_table"
   test_size: 0.2
   random_state: 42
   n_estimators: 100
