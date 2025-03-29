@@ -15,7 +15,7 @@ jobs:
       uses: google-github-actions/setup-gcloud@v0.2.0
       with:
         version: 'latest'
-        project_id: ${{ secrets.GCP_PROJECT_ID }}
+        project_id: "refined-cortex-454302-p3"
 
     - name: Authenticate to GCP
       run: |
