@@ -32,7 +32,7 @@ jobs:
 
     - name: Retag Docker Image for GCR
       run: |
-        docker tag sneh1919/sqlinjection-detector:latest gcr.io/refined-cortex-454302-p3/sqlinjection-detector:latest
+        docker tag sneh1919/sqlinjection-detector:latest asia-southeast1-docker.pkg.dev/refined-cortex-454302-p3/sqlinjection-detector:latest
 
     - name: Authenticate Docker with Google Cloud Registry
       run: |
