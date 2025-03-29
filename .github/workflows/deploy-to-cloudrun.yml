@@ -36,6 +36,10 @@ jobs:
 
     - name: Authenticate Docker with Google Cloud Registry
       run: |
+        gcloud artifacts repositories create sqlinjection-detector-repo \
+        --repository-format=Docker \
+        --location=asia-southeast1 \
+        --description="Docker repository for SQL Injection Detector"
         gcloud auth configure-docker gcr.io
 
     - name: Push Docker Image to GCR
