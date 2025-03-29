@@ -17,23 +17,31 @@ jobs:
         version: 'latest'
         project_id: ${{ secrets.GCP_PROJECT_ID }}
 
-    - name: Configure Docker authentication
+    - name: Authenticate to GCP
       run: |
-        echo ${{ secrets.GCP_SA_KEY }} | gcloud auth activate-service-account --key-file=-
-        gcloud auth configure-docker
+        echo "${{ secrets.GCP_SA_KEY }}" | gcloud auth activate-service-account --key-file=-
+        gcloud auth configure-docker gcr.io
 
-    - name: Build Docker image
+    - name: Log in to DockerHub
       run: |
-        docker build -t gcr.io/${{ secrets.GCP_PROJECT_ID }}/sqlinjection-detector .
+        echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
 
-    - name: Push Docker image to Google Container Registry
+    - name: Pull Docker Image from DockerHub
       run: |
-        docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/sqlinjection-detector
+        docker pull your-dockerhub-username/sqlinjection-detector:latest
+
+    - name: Retag Docker Image for GCR
+      run: |
+        docker tag your-dockerhub-username/sqlinjection-detector:latest gcr.io/${{ secrets.GCP_PROJECT_ID }}/sqlinjection-detector:latest
+
+    - name: Push Docker Image to GCR
+      run: |
+        docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/sqlinjection-detector:latest
 
     - name: Deploy to Google Cloud Run
       run: |
         gcloud run deploy sqlinjection-detector \
-          --image gcr.io/${{ secrets.GCP_PROJECT_ID }}/sqlinjection-detector \
+          --image gcr.io/${{ secrets.GCP_PROJECT_ID }}/sqlinjection-detector:latest \
           --platform managed \
           --region ${{ secrets.GCP_REGION }} \
           --allow-unauthenticated
