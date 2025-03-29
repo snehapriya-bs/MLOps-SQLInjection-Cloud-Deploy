@@ -58,7 +58,7 @@ jobs:
     - name: Deploy to Google Cloud Run
       run: |
         gcloud run deploy sqlinjection-detector \
-          --image asia-southeast1-docker.pkg.dev/refined-cortex-454302-p3/sqlinjection-detector:latest \
+          --image asia-southeast1-docker.pkg.dev/refined-cortex-454302-p3/sqlinjection-detector/sqlinjection-detector:latest \
           --platform managed \
           --region asia-southeast1 \
           --allow-unauthenticated
