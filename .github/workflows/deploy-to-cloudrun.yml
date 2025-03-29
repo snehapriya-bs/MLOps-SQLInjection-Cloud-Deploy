@@ -22,18 +22,7 @@ jobs:
     - name: Verify gcloud installation
       run: gcloud info
 
-    - name: Log in to DockerHub
-      run: |
-        echo "${{ secrets.DOCKER_TOKEN }}" | docker login -u "sneh1919" --password-stdin
-
-    - name: Pull Docker Image from DockerHub
-      run: |
-        docker pull sneh1919/sqlinjection-detector:latest
-
-    - name: Retag Docker Image for GCR
-      run: |
-        docker tag sneh1919/sqlinjection-detector:latest asia-southeast1-docker.pkg.dev/refined-cortex-454302-p3/sqlinjection-detector:latest
-
+   
     - name: Authenticate Docker with Google Cloud Registry
       run: |
         gcloud services enable artifactregistry.googleapis.com
@@ -52,9 +41,19 @@ jobs:
           echo "Artifact Registry already exists."
         fi
 
+    - name: Log in to DockerHub
+      run: |
+        echo "${{ secrets.DOCKER_TOKEN }}" | docker login -u "sneh1919" --password-stdin
+
+    - name: Pull Docker Image from DockerHub
+      run: |
+        docker pull sneh1919/sqlinjection-detector:latest
+
+
     - name: Push Docker Image to GCR
       run: |
-        docker push asia-southeast1-docker.pkg.dev/refined-cortex-454302-p3/sqlinjection-detector:latest
+          docker tag sneh1919/sqlinjection-detector:latest asia-southeast1-docker.pkg.dev/refined-cortex-454302-p3/sqlinjection-detector/sqlinjection-detector:latest
+          docker push asia-southeast1-docker.pkg.dev/refined-cortex-454302-p3/sqlinjection-detector/sqlinjection-detector:latest
 
     - name: Deploy to Google Cloud Run
       run: |
