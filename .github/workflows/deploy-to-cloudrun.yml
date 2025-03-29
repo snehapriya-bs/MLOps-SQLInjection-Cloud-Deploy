@@ -36,6 +36,7 @@ jobs:
 
     - name: Authenticate Docker with Google Cloud Registry
       run: |
+        gcloud services enable artifactregistry.googleapis.com
         gcloud artifacts repositories create sqlinjection-detector-repo \
         --repository-format=Docker \
         --location=asia-southeast1 \
