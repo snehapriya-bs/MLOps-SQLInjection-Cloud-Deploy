@@ -42,10 +42,11 @@ jobs:
         --location=asia-southeast1 \
         --description="Docker repository for SQL Injection Detector"
         gcloud auth configure-docker gcr.io
+        gcloud auth configure-docker asia-southeast1-docker.pkg.dev
 
     - name: Push Docker Image to GCR
       run: |
-        docker push gcr.io/refined-cortex-454302-p3/sqlinjection-detector:latest
+        docker push asia-southeast1-docker.pkg.dev/refined-cortex-454302-p3/sqlinjection-detector:latest
 
     - name: Deploy to Google Cloud Run
       run: |
