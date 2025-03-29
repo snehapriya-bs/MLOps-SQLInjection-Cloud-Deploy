@@ -21,7 +21,7 @@ jobs:
 
     - name: Verify gcloud installation
       run: gcloud info
-      
+
     - name: Log in to DockerHub
       run: |
         echo "${{ secrets.DOCKER_TOKEN }}" | docker login -u "sneh1919" --password-stdin
@@ -37,16 +37,25 @@ jobs:
     - name: Authenticate Docker with Google Cloud Registry
       run: |
         gcloud services enable artifactregistry.googleapis.com
-        gcloud artifacts repositories create sqlinjection-detector-repo \
-        --repository-format=Docker \
-        --location=asia-southeast1 \
-        --description="Docker repository for SQL Injection Detector"
         gcloud auth configure-docker gcr.io
         gcloud auth configure-docker asia-southeast1-docker.pkg.dev
 
+    - name: Create Artifact Registry if it doesn’t exist
+      run: |
+        REPO_EXISTS=$(gcloud artifacts repositories list --filter="name:sqlinjection-detector-repo" --format="value(name)")
+        if [[ -z "$REPO_EXISTS" ]]; then
+          echo "Creating Artifact Registry..."
+          gcloud artifacts repositories create sqlinjection-detector-repo \
+            --repository-format=Docker \
+            --location=asia-southeast1 \
+            --description="Docker repository for SQL Injection Detector"
+        else
+          echo "Artifact Registry already exists."
+        fi
+
     - name: Push Docker Image to GCR
       run: |
-        docker push asia-southeast1-docker.pkg.dev/refined-cortex-454302-p3/sqlinjection-detector:latest
+        docker push gcr.io/refined-cortex-454302-p3/sqlinjection-detector:latest
 
     - name: Deploy to Google Cloud Run
       run: |
