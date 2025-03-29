@@ -41,10 +41,10 @@ jobs:
 
     - name: Create Artifact Registry if it doesn’t exist
       run: |
-        REPO_EXISTS=$(gcloud artifacts repositories list --filter="name:sqlinjection-detector-repo" --format="value(name)")
+        REPO_EXISTS=$(gcloud artifacts repositories list --filter="name:sqlinjection-detector" --format="value(name)")
         if [[ -z "$REPO_EXISTS" ]]; then
           echo "Creating Artifact Registry..."
-          gcloud artifacts repositories create sqlinjection-detector-repo \
+          gcloud artifacts repositories create sqlinjection-detector \
             --repository-format=Docker \
             --location=asia-southeast1 \
             --description="Docker repository for SQL Injection Detector"
