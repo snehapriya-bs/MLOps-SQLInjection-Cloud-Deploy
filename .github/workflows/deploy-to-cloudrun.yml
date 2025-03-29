@@ -1,4 +1,4 @@
-name: Deploy to Google Cloud Run
+name: Deploy Docker Image to Google Cloud Run
 
 on:
   workflow_dispatch:
@@ -11,17 +11,16 @@ jobs:
     - name: Check out code
       uses: actions/checkout@v2
 
-    - name: Set up Google Cloud SDK
+    - name: Authenticate with Google Cloud
       uses: google-github-actions/auth@v2
       with:
-        version: 'latest'
         credentials_json: '${{ secrets.GCP_SA_KEY }}'
         
-    - name: 'Set up Cloud SDK'
-      uses: 'google-github-actions/setup-gcloud@v2'
+    - name: Set up Google Cloud SDK
+      uses: google-github-actions/setup-gcloud@v2
 
-    - name: 'Use gcloud CLI'
-      run: 'gcloud info'
+    - name: Verify gcloud installation
+      run: gcloud info
       
     - name: Log in to DockerHub
       run: |
@@ -34,6 +33,10 @@ jobs:
     - name: Retag Docker Image for GCR
       run: |
         docker tag sneh1919/sqlinjection-detector:latest gcr.io/refined-cortex-454302-p3/sqlinjection-detector:latest
+
+    - name: Authenticate Docker with Google Cloud Registry
+      run: |
+        gcloud auth configure-docker gcr.io
 
     - name: Push Docker Image to GCR
       run: |
