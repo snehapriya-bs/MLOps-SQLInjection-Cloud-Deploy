@@ -27,7 +27,8 @@ jobs:
     
     - name: Trigger Cloud Run Endpoint with SQL File
       run: |
-        SQL_FILE="$WORKDIR/data/test_sql_file.sql" 
+        ls -ltr
+        SQL_FILE="data/test_sql_file.sql" 
 
         if [ -f "$SQL_FILE" ]; then
           curl -X POST "$CLOUD_RUN_URL" \
