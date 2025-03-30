@@ -31,14 +31,11 @@ jobs:
         SQL_FILE="data/test_sql_file.sql" 
 
         if [ -f "$SQL_FILE" ]; then
-          curl -X POST "$CLOUD_RUN_URL" \
-            -H "Content-Type: text/plain" \
-            --data-binary @"$SQL_FILE"
+          curl -X POST ${{ secrets.CLOUD_RUN_URL }} -H "Content-Type: text/plain" --data-binary @"$SQL_FILE"
         else
           echo "Error: $SQL_FILE not found"
           exit 1
         fi
-      env:
-        CLOUD_RUN_URL: ${{ secrets.CLOUD_RUN_URL }}  # Add this secret in GitHub
+
 
 
