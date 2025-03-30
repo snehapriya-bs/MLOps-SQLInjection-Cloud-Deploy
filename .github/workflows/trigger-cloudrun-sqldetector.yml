@@ -31,7 +31,7 @@ jobs:
         SQL_FILE="data/test_sql_file.sql" 
 
         if [ -f "$SQL_FILE" ]; then
-          curl -X GET ${{ secrets.CLOUD_RUN_URL }}/api/v1/predict  -H "Content-Type: multipart/form-data"  -F "file=@$SQL_FILE;type=text/plain"
+          curl -X POST ${{ secrets.CLOUD_RUN_URL }}/api/v1/predict -H "accept: application/json" -H "Content-Type: multipart/form-data" -F "file=@data/test_sql_file.sql"
         else
           echo "Error: $SQL_FILE not found"
           exit 1
