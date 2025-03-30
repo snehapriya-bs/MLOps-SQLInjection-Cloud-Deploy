@@ -1,9 +1,8 @@
-# **MLOps SQL Injection Detection**
-![GitHub repo size](https://img.shields.io/github/repo-size/snehapriya-bs/MLOps-SQLInjection-Detection)
-![GitHub last commit](https://img.shields.io/github/last-commit/snehapriya-bs/MLOps-SQLInjection-Detection)
+# **MLOps SQL Injection Detector deployed on GCP Cloud Run**
+A scalable and serverless deployment for real-time SQL injection detection.
 
 ## 🚀 **Project Overview**
-This project is an **MLOps pipeline** for **SQL Injection Detection** using **Machine Learning**. The model is trained to detect malicious SQL queries and is deployed on **Google Cloud Run** for real-time predictions.
+This project is an **MLOps pipeline** for **SQL Injection Detection** using **Machine Learning**. The model is trained to detect malicious SQL queries and is deployed on **Google Cloud Run** for real-time predictions.Cloud Run ensures automatic scaling, high availability, and secure API access with minimal operational overhead.
 
 ## 📁 **Repository Structure**
 ```
