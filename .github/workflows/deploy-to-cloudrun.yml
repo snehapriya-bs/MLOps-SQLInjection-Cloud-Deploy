@@ -26,7 +26,7 @@ jobs:
     - name: Authenticate Docker with Google Cloud Registry
       run: |
         gcloud services enable artifactregistry.googleapis.com
-        gcloud auth configure-docker asia-southeast1-docker.pkg.dev
+        gcloud auth configure-docker ${{ secrets.REGION }}-docker.pkg.dev
 
     - name: Create Artifact Registry if it doesn’t exist
       run: |
@@ -35,7 +35,7 @@ jobs:
           echo "Creating Artifact Registry..."
           gcloud artifacts repositories create sqlinjection-detector \
             --repository-format=Docker \
-            --location=asia-southeast1 \
+            --location=${{ secrets.REGION }} \
             --description="Docker repository for SQL Injection Detector"
         else
           echo "Artifact Registry already exists."
@@ -52,13 +52,13 @@ jobs:
 
     - name: Push Docker Image to GCR
       run: |
-          docker tag sneh1919/sqlinjection-detector:latest asia-southeast1-docker.pkg.dev/refined-cortex-454302-p3/sqlinjection-detector/sqlinjection-detector:latest
-          docker push asia-southeast1-docker.pkg.dev/refined-cortex-454302-p3/sqlinjection-detector/sqlinjection-detector:latest
+          docker tag sneh1919/sqlinjection-detector:latest ${{ secrets.REGION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID}}/sqlinjection-detector/sqlinjection-detector:latest
+          docker push ${{ secrets.REGION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID}}/sqlinjection-detector/sqlinjection-detector:latest
 
     - name: Deploy to Google Cloud Run
       run: |
         gcloud run deploy sqlinjection-detector \
-          --image asia-southeast1-docker.pkg.dev/refined-cortex-454302-p3/sqlinjection-detector/sqlinjection-detector:latest \
+          --image ${{ secrets.REGION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID}}/sqlinjection-detector/sqlinjection-detector:latest \
           --platform managed \
-          --region asia-southeast1 \
+          --region ${{ secrets.REGION }} \
           --allow-unauthenticated
